@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blinkit Customer Support - AI Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Floating Background Animations -->
+    <div class="floating-bg-container">
+        <div class="floating-bubble bubble-1">🥗</div>
+        <div class="floating-bubble bubble-2">🍕</div>
+        <div class="floating-bubble bubble-3">🥘</div>
+        <div class="floating-bubble bubble-4">🍱</div>
+        <div class="floating-bubble bubble-5">🥙</div>
+        <div class="floating-bubble bubble-6">🍜</div>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar with Context -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Support Context</h3>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="context-section">
+                <h4>Your Account</h4>
+                <div class="user-profile animated-profile">
+                    <div class="user-avatar avatar-pulse">👤</div>
+                    <div class="user-info">
+                        <p class="user-name">John Doe</p>
+                        <p class="user-tier status-badge">🏆 Gold Member</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Order Section -->
+            <div class="context-section">
+                <h4>Active Orders</h4>
+                <div class="active-orders">
+                    <div class="order-card order-card-animated">
+                        <span class="order-id">🚚 #ORD-12345</span>
+                        <span class="order-status delivering status-pulse">Delivering</span>
+                        <p class="order-time">⏱️ ETA: 25 mins</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders Section -->
+            <div class="context-section">
+                <h4>Recent Orders</h4>
+                <div class="order-list">
+                    <div class="order-item">
+                        <span>Order #ORD-12340</span>
+                        <span class="order-tag delivered">Delivered</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Order #ORD-12339</span>
+                        <span class="order-tag delivered">Delivered</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Order #ORD-12338</span>
+                        <span class="order-tag cancelled">Cancelled</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Cart -->
+            <div class="context-section">
+                <h4>Current Cart</h4>
+                <div class="cart-items">
+                    <div class="cart-item">
+                        <span>🥛 Fresh Milk</span>
+                        <span class="qty">x2</span>
+                    </div>
+                    <div class="cart-item">
+                        <span>🍞 Bread</span>
+                        <span class="qty">x1</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="admin.html" class="admin-link">📊 Admin Panel</a>
+        </aside>
+
+        <!-- Main Chat Interface -->
+        <main class="chat-container">
+            <div class="chat-header">
+                <div class="header-content">
+                    <h1>Blinkit Support Assistant</h1>
+                    <p>AI-Powered Customer Support • Always Here to Help</p>
+                </div>
+                <button class="header-btn" onclick="toggleSentiment()">😊</button>
+            </div>
+
+            <!-- Chat Messages Area -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>👋 Hello! I'm your Blinkit Support Assistant. I'm here to help with:</p>
+                        <ul>
+                            <li>📦 Order tracking & delivery status</li>
+                            <li>🔄 Returns & refunds</li>
+                            <li>🛍️ Product availability & substitutions</li>
+                            <li>💳 Membership & pricing queries</li>
+                            <li>📸 Damage reports with images</li>
+                        </ul>
+                        <p>How can I assist you today?</p>
+                    </div>
+                    <span class="timestamp">Now</span>
+                </div>
+            </div>
+
+            <!-- Sentiment Indicator -->
+            <div class="sentiment-bar">
+                <span>Sentiment:</span>
+                <div class="sentiment-indicator">
+                    <span class="sentiment-dot positive">😊</span>
+                    <span class="sentiment-dot">😐</span>
+                    <span class="sentiment-dot frustrated">😠</span>
+                </div>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="quick-actions">
+                <button class="quick-btn" onclick="sendMessage('Where is my order?')">📍 Track Order</button>
+                <button class="quick-btn" onclick="sendMessage('I want to return an item')">🔄 Returns</button>
+                <button class="quick-btn" onclick="sendMessage('Product out of stock?')">🛍️ Availability</button>
+                <button class="quick-btn" onclick="sendMessage('Membership benefits')">💳 Membership</button>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <button class="input-btn" onclick="triggerImageUpload()" title="Upload Image">📷</button>
+                    <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
+                    
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Type your message... (Shift+Enter for new line)"
+                        onkeypress="handleInputKey(event)"
+                    ></textarea>
+                    
+                    <button class="input-btn send-btn" onclick="sendMessage()">📤</button>
+                </div>
+
+                <!-- Image Preview -->
+                <div id="imagePreview" class="image-preview"></div>
+            </div>
+
+            <!-- Help & Escalation -->
+            <div class="chat-footer">
+                <button class="escalate-btn" onclick="escalateToHuman()">🆘 Escalate to Human Agent</button>
+                <p class="footer-text">Response powered by AI • Average response time: <strong>Instant</strong></p>
+            </div>
+        </main>
+
+        <!-- Human Handoff Modal -->
+        <div id="handoffModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeHandoffModal()">&times;</span>
+                <h2>Connect with Support Agent</h2>
+                <div class="modal-body">
+                    <p>We've detected you might need additional assistance. A support agent will be with you shortly.</p>
+                    
+                    <div class="agent-info">
+                        <h4>Chat Summary</h4>
+                        <div class="summary-box" id="summaryBox">
+                            <p><strong>Issue Type:</strong> <span id="issueType">Loading...</span></p>
+                            <p><strong>Severity:</strong> <span id="severity">Medium</span></p>
+                            <p><strong>Sentiment:</strong> <span id="sentimentLevel">Neutral</span></p>
+                        </div>
+                    </div>
+
+                    <div class="queue-info">
+                        <p>📊 Queue Position: <strong>#1 of 3</strong></p>
+                        <p>⏱️ Estimated Wait: <strong>2-3 minutes</strong></p>
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button class="btn-primary" onclick="confirmHandoff()">Yes, Connect Me</button>
+                        <button class="btn-secondary" onclick="closeHandoffModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal for Refunds -->
+        <div id="refundModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeRefundModal()">&times;</span>
+                <h2>Refund Initiated</h2>
+                <div class="modal-body success">
+                    <div class="success-icon">✅</div>
+                    <p>Your refund has been processed successfully!</p>
+                    <div class="refund-details">
+                        <p><strong>Amount:</strong> <span id="refundAmount">₹0</span></p>
+                        <p><strong>Refund ID:</strong> <span id="refundId">REF-00000</span></p>
+                        <p><strong>Expected to Arrive:</strong> <span id="refundDate">3-5 business days</span></p>
+                    </div>
+                    <button class="btn-primary" onclick="closeRefundModal()">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="advanced.js"></script>
+</body>
+</html>

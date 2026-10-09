@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blinkit Support - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <a href="index.html" class="back-btn">← Back to Chat</a>
+                <h1>Admin Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <span class="admin-user">👤 Admin</span>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- Admin Sidebar -->
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <nav class="admin-nav">
+                    <a href="#" class="nav-item active" onclick="switchTab('uploads')">📤 Dataset Uploads</a>
+                    <a href="#" class="nav-item" onclick="switchTab('knowledge')">📚 Knowledge Base</a>
+                    <a href="#" class="nav-item" onclick="switchTab('chat-logs')">💬 Chat Logs</a>
+                    <a href="#" class="nav-item" onclick="switchTab('settings')">⚙️ Settings</a>
+                    <a href="#" class="nav-item" onclick="switchTab('analytics')">📊 Analytics</a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="admin-content">
+                <!-- Dataset Uploads Tab -->
+                <section id="uploads-tab" class="tab-content active">
+                    <div class="tab-header">
+                        <h2>📤 Dataset Uploads</h2>
+                        <p>Manage knowledge base datasets for the RAG system</p>
+                    </div>
+
+                    <!-- Upload Form -->
+                    <div class="upload-section">
+                        <div class="upload-card">
+                            <h3>Upload New Dataset</h3>
+                            <form class="upload-form" onsubmit="handleUpload(event)">
+                                <div class="form-group">
+                                    <label>Dataset Type *</label>
+                                    <select id="datasetType" required>
+                                        <option value="">Select Type</option>
+                                        <option value="faq">FAQs & Knowledge Base</option>
+                                        <option value="product">Product Catalog</option>
+                                        <option value="orders">Order History</option>
+                                        <option value="policies">Policies & T&C</option>
+                                        <option value="chat">Chat Transcripts</option>
+                                        <option value="profiles">Customer Profiles</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>File Name *</label>
+                                    <input type="text" id="fileName" placeholder="e.g., Q1_2024_FAQs" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>File Format *</label>
+                                    <select id="fileFormat" required>
+                                        <option value="">Select Format</option>
+                                        <option value="csv">CSV</option>
+                                        <option value="json">JSON</option>
+                                        <option value="pdf">PDF</option>
+                                        <option value="markdown">Markdown</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Upload File *</label>
+                                    <div class="file-upload-zone" id="uploadZone">
+                                        <input type="file" id="fileInput" accept=".csv,.json,.pdf,.md" style="display:none" onchange="handleFileSelect(event)">
+                                        <p>Drag & drop file here or <a href="#" onclick="document.getElementById('fileInput').click(); return false;">click to browse</a></p>
+                                        <p class="file-info">Supported: CSV, JSON, PDF, Markdown (Max 50MB)</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea id="fileDescription" placeholder="Brief description of this dataset..." rows="3"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="vectorizeCheckbox" checked>
+                                        Auto-Vectorize & Embed for RAG
+                                    </label>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary">📤 Upload Dataset</button>
+                                    <button type="reset" class="btn-secondary">Clear</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Uploaded Datasets Table -->
+                    <div class="datasets-section">
+                        <h3>Active Datasets</h3>
+                        <div class="table-wrapper">
+                            <table class="datasets-table">
+                                <thead>
+                                    <tr>
+                                        <th>Dataset Name</th>
+                                        <th>Type</th>
+                                        <th>Format</th>
+                                        <th>Records</th>
+                                        <th>Uploaded</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="datasetsTable">
+                                    <tr>
+                                        <td><strong>Q1_2024_FAQs</strong></td>
+                                        <td>FAQs</td>
+                                        <td>PDF</td>
+                                        <td>245</td>
+                                        <td>2024-06-01</td>
+                                        <td><span class="status-badge active">✓ Active</span></td>
+                                        <td>
+                                            <button class="table-btn edit" title="Edit">✏️</button>
+                                            <button class="table-btn delete" onclick="deleteDataset(this)" title="Delete">🗑️</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Product_Catalog_June</strong></td>
+                                        <td>Product</td>
+                                        <td>JSON</td>
+                                        <td>5,432</td>
+                                        <td>2024-06-10</td>
+                                        <td><span class="status-badge active">✓ Active</span></td>
+                                        <td>
+                                            <button class="table-btn edit" title="Edit">✏️</button>
+                                            <button class="table-btn delete" onclick="deleteDataset(this)" title="Delete">🗑️</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Policies_Updated</strong></td>
+                                        <td>Policies</td>
+                                        <td>Markdown</td>
+                                        <td>89</td>
+                                        <td>2024-05-28</td>
+                                        <td><span class="status-badge active">✓ Active</span></td>
+                                        <td>
+                                            <button class="table-btn edit" title="Edit">✏️</button>
+                                            <button class="table-btn delete" onclick="deleteDataset(this)" title="Delete">🗑️</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Order_History_2024</strong></td>
+                                        <td>Orders</td>
+                                        <td>CSV</td>
+                                        <td>12,543</td>
+                                        <td>2024-06-12</td>
+                                        <td><span class="status-badge processing">⏳ Processing</span></td>
+                                        <td>
+                                            <button class="table-btn edit" title="Edit">✏️</button>
+                                            <button class="table-btn delete" onclick="deleteDataset(this)" title="Delete">🗑️</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Knowledge Base Tab -->
+                <section id="knowledge-tab" class="tab-content">
+                    <div class="tab-header">
+                        <h2>📚 Knowledge Base</h2>
+                        <p>Manage and preview vectorized knowledge base</p>
+                    </div>
+
+                    <div class="kb-section">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">24,523</div>
+                                <div class="stat-label">Total Embeddings</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">6</div>
+                                <div class="stat-label">Active Datasets</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">98.5%</div>
+                                <div class="stat-label">Indexing Quality</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">2.3s</div>
+                                <div class="stat-label">Avg Query Time</div>
+                            </div>
+                        </div>
+
+                        <div class="kb-query-section">
+                            <h3>Test Knowledge Base Query</h3>
+                            <div class="test-query-form">
+                                <input type="text" placeholder="Ask a test question..." id="testQuery">
+                                <button class="btn-primary" onclick="testQuery()">🔍 Search KB</button>
+                            </div>
+                            <div id="queryResults" class="query-results"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Chat Logs Tab -->
+                <section id="chat-logs-tab" class="tab-content">
+                    <div class="tab-header">
+                        <h2>💬 Chat Logs</h2>
+                        <p>Monitor and analyze customer conversations</p>
+                    </div>
+
+                    <div class="chat-logs-section">
+                        <div class="logs-filters">
+                            <input type="date" class="filter-input">
+                            <select class="filter-input">
+                                <option>All Statuses</option>
+                                <option>Resolved</option>
+                                <option>Escalated</option>
+                                <option>Pending</option>
+                            </select>
+                            <button class="btn-primary">🔍 Filter</button>
+                        </div>
+
+                        <table class="logs-table">
+                            <thead>
+                                <tr>
+                                    <th>Chat ID</th>
+                                    <th>User</th>
+                                    <th>Start Time</th>
+                                    <th>Duration</th>
+                                    <th>Messages</th>
+                                    <th>Status</th>
+                                    <th>Sentiment</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#CHAT-2024-001</td>
+                                    <td>John Doe</td>
+                                    <td>2024-06-15 14:30</td>
+                                    <td>5:32</td>
+                                    <td>12</td>
+                                    <td><span class="status-badge active">Resolved</span></td>
+                                    <td>😊 Positive</td>
+                                    <td><button class="table-btn view" onclick="viewChatLog(this)">👁️ View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#CHAT-2024-002</td>
+                                    <td>Jane Smith</td>
+                                    <td>2024-06-15 14:15</td>
+                                    <td>8:45</td>
+                                    <td>18</td>
+                                    <td><span class="status-badge warning">Escalated</span></td>
+                                    <td>😠 Frustrated</td>
+                                    <td><button class="table-btn view" onclick="viewChatLog(this)">👁️ View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Settings Tab -->
+                <section id="settings-tab" class="tab-content">
+                    <div class="tab-header">
+                        <h2>⚙️ Settings</h2>
+                        <p>Configure bot behavior and preferences</p>
+                    </div>
+
+                    <div class="settings-section">
+                        <div class="settings-card">
+                            <h3>Bot Configuration</h3>
+                            <div class="form-group">
+                                <label>Bot Name</label>
+                                <input type="text" value="Blinkit Support Assistant" class="input-field">
+                            </div>
+                            <div class="form-group">
+                                <label>Welcome Message</label>
+                                <textarea class="input-field" rows="4">👋 Hello! I'm your Blinkit Support Assistant. How can I help you today?</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked>
+                                    Enable Image Upload
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked>
+                                    Enable Automated Refunds
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Max Refund Amount (₹)</label>
+                                <input type="number" value="1000" class="input-field">
+                            </div>
+                            <button class="btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Escalation Rules</h3>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked>
+                                    Auto-escalate on frustrated sentiment
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked>
+                                    Escalate if resolution takes > 10 messages
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" checked>
+                                    Escalate complex edge cases
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Tab -->
+                <section id="analytics-tab" class="tab-content">
+                    <div class="tab-header">
+                        <h2>📊 Analytics</h2>
+                        <p>Performance metrics and insights</p>
+                    </div>
+
+                    <div class="analytics-section">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">2,345</div>
+                                <div class="stat-label">Total Conversations</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">87%</div>
+                                <div class="stat-label">Resolution Rate</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">1.2m</div>
+                                <div class="stat-label">Avg Response Time</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">4.8/5</div>
+                                <div class="stat-label">Satisfaction Score</div>
+                            </div>
+                        </div>
+
+                        <div class="charts-container">
+                            <div class="chart-card">
+                                <h3>Sentiment Distribution</h3>
+                                <div class="chart-placeholder">
+                                    <p>😊 Positive: 65%</p>
+                                    <p>😐 Neutral: 25%</p>
+                                    <p>😠 Frustrated: 10%</p>
+                                </div>
+                            </div>
+
+                            <div class="chart-card">
+                                <h3>Top Issues</h3>
+                                <div class="chart-placeholder">
+                                    <p>📦 Order Tracking: 35%</p>
+                                    <p>🔄 Returns & Refunds: 28%</p>
+                                    <p>🛍️ Product Availability: 22%</p>
+                                    <p>💳 Membership: 15%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Upload Success Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUploadModal()">&times;</span>
+            <h2>Dataset Uploaded Successfully</h2>
+            <div class="modal-body">
+                <div class="success-icon">✅</div>
+                <p id="uploadMessage">Your dataset has been uploaded and is now being processed.</p>
+                <div class="progress-section">
+                    <p>Processing Status:</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">0%</p>
+                </div>
+                <button class="btn-primary" onclick="closeUploadModal()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>
