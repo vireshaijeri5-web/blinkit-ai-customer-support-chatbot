@@ -1,0 +1,175 @@
+{
+  "chatbot": {
+    "name": "Blinkit Support Assistant",
+    "version": "1.0.0",
+    "description": "AI-powered customer support chatbot using RAG architecture",
+    "welcomeMessage": "👋 Hello! I'm your Blinkit Support Assistant. I'm here to help with order tracking, returns, product availability, and more!",
+    "features": {
+      "imageUpload": true,
+      "automatedRefunds": true,
+      "humanEscalation": true,
+      "sentimentAnalysis": true,
+      "multiLanguage": false
+    }
+  },
+  "supportCategories": [
+    {
+      "id": "orders",
+      "name": "Order & Delivery",
+      "icon": "📦",
+      "keywords": ["order", "track", "delivery", "where", "status"]
+    },
+    {
+      "id": "returns",
+      "name": "Returns & Refunds",
+      "icon": "🔄",
+      "keywords": ["return", "refund", "damaged", "broken", "expired", "wrong"]
+    },
+    {
+      "id": "products",
+      "name": "Product Availability",
+      "icon": "🛍️",
+      "keywords": ["available", "stock", "product", "substitute", "alternative"]
+    },
+    {
+      "id": "membership",
+      "name": "Membership & Benefits",
+      "icon": "💳",
+      "keywords": ["membership", "benefit", "cash", "member", "fee", "pricing"]
+    },
+    {
+      "id": "damage",
+      "name": "Damage Claims",
+      "icon": "📸",
+      "keywords": ["damage", "image", "photo", "picture", "broken", "defective"]
+    }
+  ],
+  "escalationRules": {
+    "autoEscalateOnFrustrated": true,
+    "escalateAfterMessages": 10,
+    "escalateOnKeywords": ["help", "urgent", "agent", "human"],
+    "escalateOnComplexEdgeCases": true
+  },
+  "refundSettings": {
+    "enabled": true,
+    "maxAutoRefundAmount": 1000,
+    "requireImageProof": true,
+    "autoApprovalThreshold": 500,
+    "processingTimeHours": 24
+  },
+  "sentiment": {
+    "frustrationWords": [
+      "angry", "upset", "disappointed", "terrible", "horrible", "worst",
+      "help", "urgent", "!!!", "never", "ridiculous", "unacceptable"
+    ],
+    "positiveWords": [
+      "thanks", "thank you", "appreciate", "happy", "great", "awesome",
+      "love", "excellent", "wonderful", "perfect"
+    ],
+    "neutralThreshold": 0.5,
+    "frustrationThreshold": 0.6
+  },
+  "datasetTypes": [
+    {
+      "id": "faq",
+      "name": "FAQs & Knowledge Base",
+      "description": "Blinkit policies, T&C, and standard FAQs",
+      "supportedFormats": ["pdf", "markdown", "html"],
+      "priority": 1
+    },
+    {
+      "id": "product",
+      "name": "Product Catalog",
+      "description": "Current inventory, pricing, descriptions",
+      "supportedFormats": ["csv", "json"],
+      "priority": 2
+    },
+    {
+      "id": "orders",
+      "name": "Order History",
+      "description": "Mock datasets of user orders and transactions",
+      "supportedFormats": ["csv", "json"],
+      "priority": 3
+    },
+    {
+      "id": "policies",
+      "name": "Policies & T&C",
+      "description": "Detailed policies for refunds, shipping, etc.",
+      "supportedFormats": ["markdown", "pdf"],
+      "priority": 1
+    },
+    {
+      "id": "chat",
+      "name": "Chat Transcripts",
+      "description": "Anonymized past customer interactions",
+      "supportedFormats": ["csv"],
+      "priority": 4
+    },
+    {
+      "id": "profiles",
+      "name": "Customer Profiles",
+      "description": "User preferences and membership status",
+      "supportedFormats": ["json", "csv"],
+      "priority": 3
+    }
+  ],
+  "ui": {
+    "theme": "dark",
+    "colors": {
+      "primary": "#FFD60A",
+      "primaryDark": "#FFC300",
+      "secondary": "#0066FF",
+      "success": "#2ecc71",
+      "danger": "#e74c3c",
+      "warning": "#f39c12",
+      "bgDark": "#0F1419",
+      "bgSecondary": "#1a1f2e",
+      "textPrimary": "#ffffff",
+      "textSecondary": "#b0b0b0",
+      "border": "#2a3142"
+    },
+    "sidebarWidth": "320px",
+    "animationDuration": "0.3s",
+    "maxChatWidth": "1400px"
+  },
+  "quickActions": [
+    {
+      "label": "📍 Track Order",
+      "message": "Where is my order?"
+    },
+    {
+      "label": "🔄 Returns",
+      "message": "I want to return an item"
+    },
+    {
+      "label": "🛍️ Availability",
+      "message": "Product out of stock?"
+    },
+    {
+      "label": "💳 Membership",
+      "message": "Membership benefits"
+    }
+  ],
+  "analytics": {
+    "trackConversations": true,
+    "trackSentiment": true,
+    "trackResolutions": true,
+    "trackEscalations": true,
+    "trackResponseTime": true,
+    "enableHeatmaps": false
+  },
+  "performance": {
+    "enableCaching": true,
+    "cacheTimeout": 3600,
+    "maxChatHistory": 100,
+    "compressionEnabled": true,
+    "lazyLoadImages": true
+  },
+  "accessibility": {
+    "darkMode": true,
+    "highContrast": false,
+    "reducedMotion": false,
+    "screenReaderOptimized": true,
+    "keyboardNavigation": true
+  }
+}

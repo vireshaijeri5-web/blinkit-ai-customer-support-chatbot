@@ -1,0 +1,669 @@
+/* ============ ADMIN LAYOUT ============ */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--bg-dark);
+}
+
+.admin-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--bg-dark);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.back-btn {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--bg-dark);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.back-btn:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.header-left h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin-user {
+    font-weight: 600;
+}
+
+.logout-btn {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: var(--bg-dark);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ============ ADMIN LAYOUT STRUCTURE ============ */
+.admin-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.admin-sidebar {
+    width: 220px;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    display: block;
+    padding: 12px 16px;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 6px;
+    border-left: 3px solid transparent;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+.nav-item:hover {
+    background-color: var(--border);
+    border-left-color: var(--primary);
+}
+
+.nav-item.active {
+    background-color: rgba(255, 214, 10, 0.1);
+    color: var(--primary);
+    border-left-color: var(--primary);
+    font-weight: 600;
+}
+
+/* ============ ADMIN CONTENT ============ */
+.admin-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-header {
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 16px;
+}
+
+.tab-header h2 {
+    font-size: 28px;
+    margin-bottom: 4px;
+    color: var(--primary);
+}
+
+.tab-header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* ============ UPLOAD SECTION ============ */
+.upload-section {
+    margin-bottom: 40px;
+}
+
+.upload-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.upload-card h3 {
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.upload-form {
+    display: grid;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.form-group select,
+.input-field {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.form-group select:focus,
+.input-field:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.file-upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    text-align: center;
+    background-color: var(--bg-dark);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.file-upload-zone:hover {
+    border-color: var(--primary);
+    background-color: rgba(255, 214, 10, 0.05);
+}
+
+.file-upload-zone p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.file-upload-zone a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.file-info {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--bg-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--border);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--text-secondary);
+}
+
+/* ============ DATASETS TABLE ============ */
+.datasets-section {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.datasets-section h3 {
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.datasets-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.datasets-table thead {
+    background-color: var(--bg-dark);
+    border-bottom: 2px solid var(--border);
+}
+
+.datasets-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.datasets-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.datasets-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.datasets-table tbody tr:hover {
+    background-color: var(--bg-dark);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status-badge.active {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.status-badge.processing {
+    background-color: rgba(241, 196, 15, 0.2);
+    color: var(--warning);
+}
+
+.status-badge.warning {
+    background-color: rgba(241, 196, 15, 0.2);
+    color: var(--warning);
+}
+
+.table-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: transform 0.2s;
+}
+
+.table-btn:hover {
+    transform: scale(1.2);
+}
+
+/* ============ KNOWLEDGE BASE ============ */
+.kb-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.stat-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.kb-query-section {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.kb-query-section h3 {
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.test-query-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.test-query-form input {
+    flex: 1;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.query-results {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    min-height: 100px;
+    margin-top: 12px;
+}
+
+/* ============ CHAT LOGS ============ */
+.chat-logs-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.logs-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.filter-input {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.logs-table thead {
+    background-color: var(--bg-dark);
+    border-bottom: 2px solid var(--border);
+}
+
+.logs-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 13px;
+}
+
+.logs-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+.logs-table tbody tr:hover {
+    background-color: var(--bg-dark);
+}
+
+/* ============ SETTINGS ============ */
+.settings-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+}
+
+.settings-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.settings-card h3 {
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.settings-card .form-group {
+    margin-bottom: 16px;
+}
+
+.settings-card input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* ============ ANALYTICS ============ */
+.analytics-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 16px;
+}
+
+.chart-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.chart-card h3 {
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.chart-placeholder {
+    background-color: var(--bg-dark);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chart-placeholder p {
+    font-size: 13px;
+    margin: 6px 0;
+}
+
+/* ============ MODALS FOR ADMIN ============ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-section {
+    margin: 20px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 12px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary);
+    width: 0%;
+    animation: fillProgress 3s ease-out;
+}
+
+@keyframes fillProgress {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+#progressText {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+    .admin-sidebar {
+        width: 180px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .settings-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .admin-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 8px;
+    }
+
+    .nav-item {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .admin-content {
+        padding: 16px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+
+    .upload-form {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .logs-filters {
+        flex-direction: column;
+    }
+
+    .filter-input {
+        width: 100%;
+    }
+
+    .table-wrapper {
+        font-size: 12px;
+    }
+
+    .datasets-table th,
+    .datasets-table td {
+        padding: 8px;
+    }
+}
